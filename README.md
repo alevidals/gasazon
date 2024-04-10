@@ -9,6 +9,7 @@
     - [Installation](#installation)
       - [Back](#back)
       - [Front](#front)
+    - [Tests](#tests)
 
 </details>
 
@@ -76,3 +77,10 @@ git clone https://github.com/alevidals/gazason
     ```sh
     pnpm run dev
     ```
+
+### Tests
+
+To execute tests on the frontend execute the following script (You can use `npm` or `yarn` instead of `pnpm` if you like)
+  ```sh
+  pnpm test:unit
+  ```
