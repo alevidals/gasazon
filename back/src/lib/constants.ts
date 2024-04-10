@@ -19,5 +19,4 @@ export const PRICES_RANGE: PriceRange = {
   },
 };
 
-export const REFRESH_PRICE_INTERVAL =
-  process.env.NODE_ENV === "development" ? 5000 : 30000;
+export const REFRESH_PRICE_INTERVAL = 30000;

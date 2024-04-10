@@ -1,6 +1,9 @@
+import cors from "cors";
 import express from "express";
 import http from "node:http";
 import { Server } from "socket.io";
+import { REFRESH_PRICE_INTERVAL } from "./lib/constants";
+import { getRandomBottlePrice } from "./lib/utils";
 import { petrolRouter } from "./routes/petrolStations";
 import { petrolStations } from "./services/petrolStations";
 
@@ -12,11 +15,21 @@ const io = new Server(server, {
   },
 });
 
+app.use(cors());
 app.use("/petrols", petrolRouter);
 
 setInterval(() => {
+  for (const station of petrolStations) {
+    station.prices = {
+      "1L": getRandomBottlePrice("1L"),
+      "3L": getRandomBottlePrice("3L"),
+      "5L": getRandomBottlePrice("5L"),
+      "15L": getRandomBottlePrice("15L"),
+    };
+  }
+
   io.emit("petrolStations", petrolStations);
-}, 5000);
+}, REFRESH_PRICE_INTERVAL);
 
 server.listen(3000, () => {
   console.log("listening on *:3000");
