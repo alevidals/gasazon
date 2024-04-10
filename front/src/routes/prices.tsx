@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { socket } from "@/lib/socket";
 import type { PetrolStation } from "@/lib/types";
-import { cn, getTotalPrice } from "@/lib/utils";
+import { cn, getTotalPriceAndAmount } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
@@ -48,7 +48,7 @@ export default function PricesPage() {
   const minPrice = Math.min(
     ...petrolStations.map(
       (petrolStation) =>
-        getTotalPrice({
+        getTotalPriceAndAmount({
           liters: Number(liters),
           petrolStation,
         }).totalPrice,
@@ -56,7 +56,7 @@ export default function PricesPage() {
   );
 
   const processedPetrolStations = petrolStations.map((petrolStation) => {
-    const { totalPrice, carafesToBuy } = getTotalPrice({
+    const { totalPrice, carafesToBuy } = getTotalPriceAndAmount({
       liters: Number(liters),
       petrolStation,
     });

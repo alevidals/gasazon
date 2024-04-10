@@ -13,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getTotalPrice(args: GetTotalPriceArgs) {
+export function getTotalPriceAndAmount(args: GetTotalPriceArgs) {
   const { liters, petrolStation } = args;
 
   let litersLeft = liters;
