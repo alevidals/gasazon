@@ -43,7 +43,10 @@ export function getTotalPrice(args: GetTotalPriceArgs) {
     );
   }, 0);
 
-  return Math.round(totalPrice * 100) / 100;
+  return {
+    totalPrice,
+    carafesToBuy,
+  };
 }
 
 export function isNumber(str: string) {

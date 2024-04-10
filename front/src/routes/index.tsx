@@ -30,15 +30,15 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex items-center justify-center flex-1 flex-col">
-      <h2 className="text-xl font-bold max-w-lg text-balance text-center mb-24 md:text-3xl">
+    <div className="mx-auto flex-1 mt-24">
+      <h2 className="text-xl font-bold max-w-lg text-balance text-center mb-24 md:text-3xl animate-fade-in">
         Welcome to Gasazon! Enter the number of liters you want to buy to
         calculate the best price.
       </h2>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full max-w-md"
+          className="space-y-8 w-full max-w-md animate-slide-in-top mx-auto"
         >
           <FormField
             control={form.control}

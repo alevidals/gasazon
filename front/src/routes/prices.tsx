@@ -46,24 +46,40 @@ export default function PricesPage() {
   const [petrolStations, setPetrolStations] = useState<PetrolStation[]>([]);
 
   const minPrice = Math.min(
-    ...petrolStations.map((petrolStation) =>
-      getTotalPrice({
-        liters: Number(liters),
-        petrolStation,
-      }),
+    ...petrolStations.map(
+      (petrolStation) =>
+        getTotalPrice({
+          liters: Number(liters),
+          petrolStation,
+        }).totalPrice,
     ),
   );
 
   const processedPetrolStations = petrolStations.map((petrolStation) => {
-    const totalPrice = getTotalPrice({ liters: Number(liters), petrolStation });
+    const { totalPrice, carafesToBuy } = getTotalPrice({
+      liters: Number(liters),
+      petrolStation,
+    });
 
     return {
       ...petrolStation,
-      prices: {
-        "1L": formatter.format(petrolStation.prices["1L"]),
-        "3L": formatter.format(petrolStation.prices["3L"]),
-        "5L": formatter.format(petrolStation.prices["5L"]),
-        "15L": formatter.format(petrolStation.prices["15L"]),
+      carafes: {
+        "1L": {
+          price: formatter.format(petrolStation.prices["1L"]),
+          amount: carafesToBuy["1L"],
+        },
+        "3L": {
+          price: formatter.format(petrolStation.prices["3L"]),
+          amount: carafesToBuy["3L"],
+        },
+        "5L": {
+          price: formatter.format(petrolStation.prices["5L"]),
+          amount: carafesToBuy["5L"],
+        },
+        "15L": {
+          price: formatter.format(petrolStation.prices["15L"]),
+          amount: carafesToBuy["15L"],
+        },
       },
       totalPrice: formatter.format(totalPrice),
       isCheapest: totalPrice === minPrice,
@@ -99,7 +115,10 @@ export default function PricesPage() {
 
   return (
     <div className="flex-1 mt-12">
-      <h1 className="text-center text-2xl mb-12">Prices for {liters} liters</h1>
+      <h1 className="text-center text-2xl mb-12">
+        Prices for <span className="font-bold text-primary">{liters}</span>{" "}
+        liters
+      </h1>
       {isLoading ? (
         <div className="mx-auto text-center">Loading...</div>
       ) : (
@@ -124,14 +143,14 @@ export default function PricesPage() {
                 <TableRow
                   key={petrolStation.id}
                   className={cn({
-                    "font-bold bg-green-700": petrolStation.isCheapest,
+                    "font-bold bg-primary": petrolStation.isCheapest,
                   })}
                 >
                   <TableCell>{petrolStation.name}</TableCell>
-                  <TableCell>{petrolStation.prices["1L"]}</TableCell>
-                  <TableCell>{petrolStation.prices["3L"]}</TableCell>
-                  <TableCell>{petrolStation.prices["5L"]}</TableCell>
-                  <TableCell>{petrolStation.prices["15L"]}</TableCell>
+                  <TableCell>{petrolStation.carafes["1L"].price}</TableCell>
+                  <TableCell>{petrolStation.carafes["3L"].price}</TableCell>
+                  <TableCell>{petrolStation.carafes["5L"].price}</TableCell>
+                  <TableCell>{petrolStation.carafes["15L"].price}</TableCell>
                   <TableCell className="text-right">
                     {petrolStation.totalPrice}
                   </TableCell>
@@ -141,11 +160,20 @@ export default function PricesPage() {
           </Table>
           <div className="mt-8 text-center">
             Cheapest petrol station:{" "}
-            <span className="font-bold">
+            <span className="font-bold text-primary">
               {cheapestPetrolStation?.name} ({cheapestPetrolStation?.totalPrice}
               )
             </span>
           </div>
+          <ul className="text-center mt-4">
+            {Object.entries(cheapestPetrolStation?.carafes ?? {}).map(
+              ([size, data]) => (
+                <li key={size}>
+                  {data.amount} units of {Number.parseInt(size)} liters
+                </li>
+              ),
+            )}
+          </ul>
         </>
       )}
     </div>

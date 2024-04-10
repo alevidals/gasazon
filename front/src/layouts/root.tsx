@@ -6,7 +6,7 @@ export default function RootLayout() {
       <header className=" h-12 flex items-center border-b">
         <div className="container">
           <Link to="/">
-            <h1 className="text-foreground font-bold">Gasazon</h1>
+            <h1 className="font-bold text-primary">Gasazon</h1>
           </Link>
         </div>
       </header>
