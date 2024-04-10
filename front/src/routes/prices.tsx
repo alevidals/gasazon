@@ -1,6 +1,7 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -69,6 +70,10 @@ export default function PricesPage() {
     };
   });
 
+  const cheapestPetrolStation = processedPetrolStations.find(
+    (petrolStation) => petrolStation.isCheapest,
+  );
+
   const { data, isLoading } = useQuery({
     queryKey: ["prices"],
     queryFn: fetchPetrolStationData,
@@ -93,42 +98,55 @@ export default function PricesPage() {
   }
 
   return (
-    <div className="flex-1 container mt-12">
+    <div className="flex-1 mt-12">
       <h1 className="text-center text-2xl mb-12">Prices for {liters} liters</h1>
       {isLoading ? (
         <div className="mx-auto text-center">Loading...</div>
       ) : (
-        <Table className="max-w-2xl mx-auto">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Petrol Station</TableHead>
-              <TableHead className="w-16">1L</TableHead>
-              <TableHead className="w-16">3L</TableHead>
-              <TableHead className="w-16">5L</TableHead>
-              <TableHead className="w-16">15L</TableHead>
-              <TableHead className="w-20 text-right">Total</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {processedPetrolStations.map((petrolStation) => (
-              <TableRow
-                key={petrolStation.name}
-                className={cn({
-                  "font-bold bg-green-700": petrolStation.isCheapest,
-                })}
-              >
-                <TableCell>{petrolStation.name}</TableCell>
-                <TableCell>{petrolStation.prices["1L"]}</TableCell>
-                <TableCell>{petrolStation.prices["3L"]}</TableCell>
-                <TableCell>{petrolStation.prices["5L"]}</TableCell>
-                <TableCell>{petrolStation.prices["15L"]}</TableCell>
-                <TableCell className="text-right">
-                  {petrolStation.totalPrice}
-                </TableCell>
+        <>
+          <Table className="max-w-2xl mx-auto">
+            <TableCaption>
+              The prices will be updated automatically each 30 seconds
+            </TableCaption>
+
+            <TableHeader>
+              <TableRow>
+                <TableHead>Petrol Station</TableHead>
+                <TableHead className="w-16">1L</TableHead>
+                <TableHead className="w-16">3L</TableHead>
+                <TableHead className="w-16">5L</TableHead>
+                <TableHead className="w-16">15L</TableHead>
+                <TableHead className="w-20 text-right">Total</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {processedPetrolStations.map((petrolStation) => (
+                <TableRow
+                  key={petrolStation.id}
+                  className={cn({
+                    "font-bold bg-green-700": petrolStation.isCheapest,
+                  })}
+                >
+                  <TableCell>{petrolStation.name}</TableCell>
+                  <TableCell>{petrolStation.prices["1L"]}</TableCell>
+                  <TableCell>{petrolStation.prices["3L"]}</TableCell>
+                  <TableCell>{petrolStation.prices["5L"]}</TableCell>
+                  <TableCell>{petrolStation.prices["15L"]}</TableCell>
+                  <TableCell className="text-right">
+                    {petrolStation.totalPrice}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <div className="mt-8 text-center">
+            Cheapest petrol station:{" "}
+            <span className="font-bold">
+              {cheapestPetrolStation?.name} ({cheapestPetrolStation?.totalPrice}
+              )
+            </span>
+          </div>
+        </>
       )}
     </div>
   );

@@ -30,7 +30,11 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex items-center justify-center flex-1">
+    <div className="flex items-center justify-center flex-1 flex-col">
+      <h2 className="text-xl font-bold max-w-lg text-balance text-center mb-24 md:text-3xl">
+        Welcome to Gasazon! Enter the number of liters you want to buy to
+        calculate the best price.
+      </h2>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

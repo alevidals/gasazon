@@ -9,6 +9,7 @@ export type PriceRange = Record<
 >;
 
 export type PetrolStation = {
+  id: string;
   name: string;
   prices: Record<BottleType, number>;
 };

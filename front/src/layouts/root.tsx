@@ -10,7 +10,7 @@ export default function RootLayout() {
           </Link>
         </div>
       </header>
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col container">
         <Outlet />
       </div>
     </div>

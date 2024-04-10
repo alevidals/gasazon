@@ -1,11 +1,12 @@
 import { io } from "..";
 import { REFRESH_PRICE_INTERVAL } from "../lib/constants";
 import type { PetrolStation } from "../lib/types";
-import { getRandomBottlePrice } from "../lib/utils";
+import { getRandomBottlePrice, getRandomName } from "../lib/utils";
 
 export const petrolStations: PetrolStation[] = [
   {
-    name: "Petrol Station 1",
+    id: crypto.randomUUID(),
+    name: getRandomName(),
     prices: {
       "1L": getRandomBottlePrice("1L"),
       "3L": getRandomBottlePrice("3L"),
@@ -14,7 +15,8 @@ export const petrolStations: PetrolStation[] = [
     },
   },
   {
-    name: "Petrol Station 2",
+    id: crypto.randomUUID(),
+    name: getRandomName(),
     prices: {
       "1L": getRandomBottlePrice("1L"),
       "3L": getRandomBottlePrice("3L"),
@@ -23,7 +25,8 @@ export const petrolStations: PetrolStation[] = [
     },
   },
   {
-    name: "Petrol Station 3",
+    id: crypto.randomUUID(),
+    name: getRandomName(),
     prices: {
       "1L": getRandomBottlePrice("1L"),
       "3L": getRandomBottlePrice("3L"),
@@ -32,7 +35,8 @@ export const petrolStations: PetrolStation[] = [
     },
   },
   {
-    name: "Petrol Station 4",
+    id: crypto.randomUUID(),
+    name: getRandomName(),
     prices: {
       "1L": getRandomBottlePrice("1L"),
       "3L": getRandomBottlePrice("3L"),
@@ -41,7 +45,8 @@ export const petrolStations: PetrolStation[] = [
     },
   },
   {
-    name: "Petrol Station 5",
+    id: crypto.randomUUID(),
+    name: getRandomName(),
     prices: {
       "1L": getRandomBottlePrice("1L"),
       "3L": getRandomBottlePrice("3L"),
