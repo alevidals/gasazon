@@ -1,9 +1,13 @@
-# Gazason
+# Petrol Stations
+
+<p>
+Gazason is a web application that allows you to calculate the cheapest petrol station prices for a given number of liters.
+</p>
 
 <details>
 <summary>Table of contents</summary>
 
-- [Gazason](#gazason)
+- [Petrol Stations](#petrol-stations)
   - [To start](#to-start)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
@@ -40,7 +44,7 @@
 At first clone the repository 
 
 ```sh
-git clone https://github.com/alevidals/gazason
+git clone https://github.com/alevidals/petrol-stations
 ```
 
 #### Back
