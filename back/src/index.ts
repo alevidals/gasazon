@@ -13,7 +13,11 @@ export const io = new Server(server, {
   },
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+  })
+);
 app.use("/petrols", petrolRouter);
 
 server.listen(3000, () => {
